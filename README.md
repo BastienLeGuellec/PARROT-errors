@@ -12,10 +12,8 @@ This repository contains the scripts used to inject three types of errors into P
 ## Pipeline
 
 ```
-PARROT_v1_0.jsonl
+parrot_proofread.jsonl
        │
-       ▼
-proofread_with_llm.py          → parrot_proofread.jsonl
        │
        ├── introduce_laterality_errors.py  → reports_with_laterality_errors.jsonl
        ├── introduce_negation_errors.py    → reports_with_negation_errors.jsonl
@@ -29,15 +27,6 @@ proofread_with_llm.py          → parrot_proofread.jsonl
 
 ## Scripts
 
-### `proofread_with_llm.py`
-LLM-based proofreading of PARROT reports prior to error injection. Corrects minor transcription artefacts without altering medical content.
-
-```bash
-python proofread_with_llm.py \
-  --input PARROT_v1_0.jsonl \
-  --output parrot_proofread.jsonl \
-  --api-key $OPENAI_API_KEY
-```
 
 ### `introduce_laterality_errors.py`
 Uses `gpt-4o-2024-08-06` to introduce laterality contradictions (e.g., "left" in Findings vs. "right" in Impression) consistently across each original-language report and its English translation.
@@ -87,7 +76,6 @@ python merge_reports.py
 
 | File | Description |
 |------|-------------|
-| `PARROT_v1_0.jsonl` | Original PARROT dataset (source) |
 | `parrot_proofread.jsonl` | LLM-proofread reports (pipeline input) |
 | `reports_with_laterality_errors.jsonl` | Reports with injected laterality errors |
 | `reports_with_negation_errors.jsonl` | Reports with injected negation errors |
